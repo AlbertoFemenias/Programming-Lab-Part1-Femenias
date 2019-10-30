@@ -1,9 +1,8 @@
 package StreamUsage;
 
-import com.sun.security.jgss.InquireSecContextPermission;
+
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
@@ -24,7 +23,7 @@ public class StreamClass {
                 .collect(Collectors.toList());
     }
 
-    public static void main(final String... args) throws IOException {
+    public static void main(final String... args) {
         StreamClass streamnator = new StreamClass();
 
         //NEW LIST WITH ELEMENTS

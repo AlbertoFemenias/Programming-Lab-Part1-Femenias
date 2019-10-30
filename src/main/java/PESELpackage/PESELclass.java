@@ -17,9 +17,8 @@ public class PESELclass {
         int resta = 10-mod;
         //System.out.println("10 - " +mod+" = " + resta );
         //System.out.println("el utlimo digito es "+arrayPesel[arrayPesel.length-1]);
-        boolean comp = resta == arrayPesel[arrayPesel.length-1];
+        return resta == arrayPesel[arrayPesel.length-1];
         //System.out.println("Son iguales? "+comp);
-        return comp;
     }
 
 

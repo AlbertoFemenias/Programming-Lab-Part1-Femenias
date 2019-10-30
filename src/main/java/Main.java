@@ -5,9 +5,7 @@ import org.xerial.snappy.Snappy;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 
@@ -43,8 +41,8 @@ public class Main {
 
         PESELclass peselOperator = new PESELclass();
         Scanner input = new Scanner(System.in);
-        List<String> lines = new ArrayList<String>();
-        String pesel = null;
+        List<String> lines = new ArrayList<>();
+        String pesel;
         String lineNew;
 
         while(true){
@@ -68,18 +66,18 @@ public class Main {
             lines.add(lineNew);
         }
 
-        System.out.println("");
+        System.out.println();
 
         String path = "/Users/alberto/Downloads/Programming-Lab-Part1-Femenias/output.txt";
         writeFile(lines, path);
         System.out.println(path+" has been generated");
 
-        System.out.println("");
+        System.out.println();
         System.out.println("Now I am going to use some Streams");
         System.out.println("You entered (lines ordered alphabetically):");
         StreamClass streamnator = new StreamClass();
         streamnator.orderPrint(lines);
-        System.out.println("");
+        System.out.println();
 
         System.out.print("I have a stack of PESEL numbers:  ");
         Stack<Long> PESELstack = new Stack();
@@ -91,8 +89,8 @@ public class Main {
         for (Long n : streamnator.createList(PESELstack, 5)){
             System.out.print(n+" ");
         }
-        System.out.println("");
-        System.out.println("");
+        System.out.println();
+        System.out.println();
 
 
         System.out.println("Now I am going to use a Maven libray");
@@ -100,12 +98,12 @@ public class Main {
         //HERE I USE A COMPRESSION LIBRARY TO COMPRESS THE LINES
         StringBuilder text = new StringBuilder();
         String linesAppended = String.valueOf(text.append(lines).append("\n"));
-        byte[] compressed = Snappy.compress(linesAppended.getBytes("UTF-8"));
+        byte[] compressed = Snappy.compress(linesAppended.getBytes(StandardCharsets.UTF_8));
         for (byte b : compressed){
             System.out.print(b+" ");
         }
-        System.out.println("");
-        System.out.println("");
+        System.out.println();
+        System.out.println();
         System.out.println("Compression done. Nothing else to do, exisiting program");
 
 
