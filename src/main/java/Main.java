@@ -1,7 +1,11 @@
 import org.xerial.snappy.Snappy;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +17,20 @@ import java.util.Scanner;
 //              12300000000
 //              52090557562
 
+// FALTA PASAR LO DEL PESEL A UNA CLASE Y HACERLE LOS TESTS,
+// CREAR UNA CLASE QUE EJECUTE STREAMS (UNO CON RETORNO DE ESTRUCTURA Y OTRO SIN) Y SUS TESTS
+//EJECUTAR LOS STREAMS DE FORMA ARTIFICIAL
+// DEJAR PARA EL FINAL LO DE HACER LOS TESTS!!!
+
 public class Main {
 
+
     private static boolean checkSumCheck (String pesel) {
+
+        //stream to get ints from String
         int[] arrayPesel = pesel.chars().map(Character::getNumericValue).toArray();
         int suma = 0;
-        int factrs[]={1,3,7,9,1,3,7,9,1,3};
+        int[] factrs ={1,3,7,9,1,3,7,9,1,3};
         for (int i = 0; i < factrs.length; i++) {
             suma = suma + arrayPesel[i] * factrs[i];
         }
@@ -59,13 +71,33 @@ public class Main {
 
     }
 
+
+
+    private static void writeFile(List<String> text, String path) {
+        try {
+            FileWriter fw = new FileWriter(path, true);
+                PrintWriter pw = new PrintWriter(fw);
+                for (String line : text){
+                    pw.println(line);
+                }
+                pw.close();
+        }
+        catch (IOException e) {
+                System.out.println("Error writing the file!");
+        }
+    }
+
+
+
+
     public static void main(final String... args) throws IOException {
 
         System.out.print("Hello world, please enter your PESEL number to continue: ");
 
         Scanner input = new Scanner(System.in);
-        //List<String> lines = new ArrayList<String>();
+        List<String> lines = new ArrayList<String>();
         String pesel = null;
+        String lineNew;
 
         while(true){
             pesel = input.nextLine();
@@ -76,47 +108,50 @@ public class Main {
             }
         }
 
+        System.out.println("You have entered your: "+pesel+" PESEL succesfully!");
+        System.out.println("Please, input some text that will be exported as a file:");
 
-        //System.out.println(pesel);
-
-        /*
-        while (input.hasNextLine()) {
-            lineNew = input.nextLine();
-            if (lineNew.isEmpty()) {
-                break;
-            }
-            System.out.println(lineNew);
-            //lines.add(lineNew);
-        }*/
-
-        System.out.println("You have entered your: "+pesel+" PESEL succesfully, program is going to exit");
-       // for (String string : lines) {
-       //     System.out.println(string);
-       // }
-
-        /*
-        Scanner input = new Scanner(System.in);
-        List<String> lines = new ArrayList<String>();
-        String lineNew;
 
         while (input.hasNextLine()) {
             lineNew = input.nextLine();
             if (lineNew.isEmpty()) {
                 break;
             }
-            System.out.println(lineNew);
             lines.add(lineNew);
         }
 
-        System.out.println("Content of List<String> lines:");
-        for (String string : lines) {
-            System.out.println(string);
-        }
-        */
+        System.out.println("");
 
-        /*
+        String path = "/Users/alberto/Downloads/Programming-Lab-Part1-Femenias/output.txt";
+        writeFile(lines, path);
+        System.out.println(path+" has been generated");
+
+
+        System.out.println("Using snappy library to compress your text");
+        //HERE I USE A COMPRESSION LIBRARY TO COMPRESS THE LINES
+        StringBuilder text = new StringBuilder();
+        String linesAppended = String.valueOf(text.append(lines).append("\n"));
+        byte[] compressed = Snappy.compress(linesAppended.getBytes("UTF-8"));
+        System.out.println("Compression done. Nothing else to do, exisiting program");
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+   /*      EXAMPLE OF USAGE OF THE COMPRESSION LIBRARY
         String input = "Hello snappy-java! Snappy-java is a JNI-based wrapper of "
                 + "Snappy, a fast compresser/decompresser.";
+
         byte[] compressed = Snappy.compress(input.getBytes("UTF-8"));
         byte[] uncompressed = Snappy.uncompress(compressed);
 
@@ -126,5 +161,3 @@ public class Main {
         System.out.println(comprimio);
 
     */
-    }
-}
