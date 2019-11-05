@@ -74,7 +74,7 @@ public class Main {
 
         System.out.println();
         System.out.println("Now I am going to use some Streams");
-        System.out.println("You entered (lines ordered alphabetically):");
+        System.out.println("Your input lines ordered alphabetically:");
         StreamClass streamnator = new StreamClass();
         streamnator.orderPrint(lines);
         System.out.println();

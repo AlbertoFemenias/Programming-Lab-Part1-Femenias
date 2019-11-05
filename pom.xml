@@ -31,7 +31,7 @@
                             <archive>
                                 <manifest>
                                     <mainClass>
-                                        second.debug.Breakpoints
+                                        PESELtest.debug.Breakpoints
                                     </mainClass>
                                 </manifest>
                             </archive>
